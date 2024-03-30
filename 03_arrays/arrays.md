@@ -1,5 +1,4 @@
 # Accessing elements
-
 ```javascript
 let arr = ["apple", "mango", "banana", { name: "sahaj", age: 21 }];
 
@@ -11,13 +10,44 @@ console.log(arr[3].name);          //sahaj
 console.log(arr[3].age);           //21
 ```
 
-# length
+# indexOf()
+- It searches the array from the beginning to the end.
+- Returns the index or -1 if the element is not present.
 
+```javascript
+let arr = ["sahaj", 30, "arora", 100, "saloni", "arora"];
+
+console.log(arr.indexOf("arora"));               //2
+console.log(arr.indexOf("javascript"));          //-1
+```
+
+# lastIndexOf()
+- It searches the array from the end to the beginning.
+- Returns the index or -1 if the element is not present.
+
+```javascript
+let arr = ["sahaj", 30, "arora", 100, "saloni", "arora"];
+
+console.log(arr.lastIndexOf("arora"));           //5
+console.log(arr.lastIndexOf("javascript"));      //-1
+```
+
+# length
 ```javascript
 let arr = [1, "sahaj", true, null, undefined];
 console.log(arr.length);
 ```
 Output : `5`
+
+# join()
+```javascript
+let arr = ["sahaj", "arora"];
+
+console.log(arr.join(" and "));       //sahaj and arora
+console.log(arr.join("-"));           //sahaj-arora
+console.log(arr.join(""));            //sahajarora
+console.log(arr.join(" "));           //sahaj arora
+```
 
 # push(), pop(), shift(), unshift()
 - These methods modifies the original array.
@@ -65,8 +95,20 @@ console.log("Returns the popped out element : ", shift_result);
 console.log("Original Array : ", original_arr);
 //Original Array :  [ 'arora', 'developer' ]
 ```
+
+# toString()
+- Doesn't modify the original array, it just returns a string representation of it.
+
+```javascript
+let myArr = ["sahaj", 2000, "saloni"];
+
+let myStr = myArr.toString();
+console.log("Required strings : ", myStr);         //Required strings :  sahaj,2000,saloni
+console.log("Original array : ", myArr);           //Original array :  [ 'sahaj', 2000, 'saloni' ]
+```
  
 # flat()
+- Pass Infinity as the depth argument.
 
 ```javascript
 let original_arr = [1, 2, [3, 4, 5], 6, 7, [8, 9, [10, 11]]];
@@ -80,7 +122,6 @@ console.log(flatten_arr);
 ```
 
 # includes()
-
 ```javascript
 let arr = ["sahaj", 23, true, "password"];
 
@@ -92,7 +133,6 @@ console.log(arr.includes(true));           //true
 ```
 
 # concat()
-
 ```javascript
 let arr1 = [1, 2];
 let arr2 = ["sahaj", true];
@@ -117,7 +157,10 @@ console.log(arr.fill("sahaj"));
 
 console.log(arr.fill("orange", 2));
 //will start filling from 2nd index
-//[ 'sahaj', 'sahaj', 'orange', 'orange' ]
+//[ 'sahaj', 'apple', 'orange', 'orange' ]
+
+console.log(arr.fill("kiwi", 1, 3));
+//[ 'sahaj', 'kiwi', 'kiwi', 'mango' ]
 ```
 
 # reverse()
@@ -132,7 +175,6 @@ console.log("Original Array : ", original_arr);
 Output : `Original Array :  [ 5, 4, 3, 2, 1 ]`
 
 # spread operator
-
 ```javascript
 let value1 = ["sahaj", 21];
 let value2 = [true, false];
@@ -170,29 +212,52 @@ console.log("Original Array : ", originalArr);
 ```
 
 # splice()
+- It modifies the original array.
 
 ```javascript
-let arr = [19, "orange", "apple"];
+let arr = [1, 2, "sahaj", 4, 5];
 ```
 
 ```javascript
-let spliced_arr = arr.splice(0, 2);
-
-console.log("Removed portion : ", spliced_arr);
-//Removed portion :  [ 19, 'orange' ]
-
-console.log("Original Array : ", arr);
-//Original Array :  [ 'apple' ]
+let removedArr = arr.splice(1);
+console.log("Removed array : ", removedArr);          //Removed array :  [ 2, 'sahaj', 4, 5 ]
+console.log("Original array : ", arr);                //Original array :  [ 1 ]
 ```
 
 ```javascript
-let replaced_spliced_arr = arr.splice(0, 2, "sahaj", "arora");
+let removedArr = arr.splice(2);
+console.log("Removed array : ", removedArr);          //Removed array :  [ 'sahaj', 4, 5 ]
+console.log("Original array : ", arr);                //Original array :  [ 1, 2 ]
+```
 
-console.log("Removed portion : ", replaced_spliced_arr);
-//Removed portion :  [ 19, 'orange' ]
+```javascript
+let removedArr = arr.splice(-1);
+console.log("Removed array : ", removedArr);          //Removed array :  [ 5 ]
+console.log("Original array : ", arr);                //Original array :  [ 1, 2, 'sahaj', 4 ]
+```
 
-console.log("Updated array : ", arr);
-//Updated array :  [ 'sahaj', 'arora', 'apple' ]
+```javascript
+let removedArr = arr.splice(-2);
+console.log("Removed array : ", removedArr);          //Removed array :  [ 4, 5 ]
+console.log("Original array : ", arr);                //Original array :  [ 1, 2, 'sahaj' ]
+```
+
+```javascript
+let removedArr = arr.splice(0, 2);
+console.log("Removed array : ", removedArr);          //Removed array :  [ 1, 2 ]
+console.log("Original array : ", arr);                //Original array :  [ 'sahaj', 4, 5 ]
+```
+
+```javascript
+let removedArr = arr.splice(1, 3, "saloni", "varsha");
+console.log("Removed array : ", removedArr);         //Removed array :  [ 2, 'sahaj', 4 ]
+console.log("Original array : ", arr);               //Original array :  [ 1, 'saloni', 'varsha', 5 ]
+```
+
+```javascript
+let removedArr = arr.splice(2, 2, "nodejs");
+console.log("Removed array : ", removedArr);         //Removed array :  [ 'sahaj', 4 ]
+console.log("Original array : ", arr);               //Original array :  [ 1, 2, 'nodejs', 5 ]
 ```
 
 # Array.isArray()
