@@ -1,4 +1,4 @@
-# for in loop
+# for...in loop
 ```javascript
 let obj = {
   name: "sahaj",

@@ -18,7 +18,7 @@ while (i < myArray.length) {
 }
 ```
 
-# for of loop
+# for...of loop
 ```javascript
 let myArray = ["sahaj", 20, true];
 
@@ -27,7 +27,7 @@ for (let element of myArray) {
 }
 ```
 
-# for in loop
+# for...in loop
 ```javascript
 let myArray = ["sahaj", 20, 40, "saloni"];
 

@@ -16,7 +16,7 @@ console.log(resultStr);                  //[ 's', 'a', 'h', 'a', 'j' ]
 console.log(resultStr.join(""));         //sahaj
 ```
 
-# for of loop
+# for...of loop
 ```javascript
 let myStr = "HELLO";
 
@@ -84,7 +84,7 @@ console.log(result);                        //[ 's', 'a', 'h', 'a', 'j' ]
 console.log(result.join(""));               //sahaj
 ```
 
-# for in loop
+# for...in loop
 ```javascript
 let myStr = "sahaj";
 
