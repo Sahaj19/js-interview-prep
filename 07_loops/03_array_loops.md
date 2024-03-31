@@ -148,7 +148,7 @@ console.log(result1);   //sahaj
 ```
 
 ### What if we need all the elements satisfying our given condition??
-- We will us `filter()` method.
+- We will use `filter()` method.
 
 ```javascript
 let myArr = [13, 20, "sahaj", 100, "developer"];
