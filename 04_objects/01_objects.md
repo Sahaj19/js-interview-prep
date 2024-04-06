@@ -121,7 +121,7 @@ console.log(result2);
 Output : `{ name: 'sahaj', age: 21, gender: 'male' }`
 
 # Call by reference
-- obj1 and obj2 both reference the same object. Modifying obj2 also modifies obj1 because they share the same reference to the object.
+- obj1 and obj2 both reference the same object. Modifying obj2 also modifies obj1 because they share the `same reference` to the object.
 
 ```javascript
 let obj1 = {
@@ -134,12 +134,9 @@ let obj2 = obj1;
 obj2.myName = "saloni arora";
 obj2.age = 20;
 
-console.log(obj2);
-console.log(obj1);
+console.log(obj2);                           //{ myName: 'saloni arora', age: 20 }
+console.log(obj1);                           //{ myName: 'saloni arora', age: 20 }
 ```
-Output : `{ myName: 'saloni arora', age: 20 }`
-
-# Shallow Copy
 
 ```javascript
 let obj1 = {
@@ -157,11 +154,12 @@ obj2.myName = "sammy";
 obj2.age = 25;
 obj2.gender = "female";
 
-console.log(obj1);             //{ myName: 'sammy', age: 25, gender: 'female' }
-console.log(obj2);             //{ myName: 'sammy', age: 25, gender: 'female' }
+console.log(obj1);                   //{ myName: 'sammy', age: 25, gender: 'female' }
+console.log(obj2);                   //{ myName: 'sammy', age: 25, gender: 'female' }
 ```
 
-# Deep Copy
+# Shallow Copy
+- Shallow copy creates a new object with `top-level properties copied`, but nested objects are referenced, not duplicated.
 
 ```javascript
 let obj1 = {
@@ -172,16 +170,97 @@ let obj1 = {
 
 let obj2 = Object.assign({}, obj1);
 
-console.log(obj1 === obj2);         //false
-console.log(Object.is(obj1, obj2)); //false
+console.log(obj1 === obj2);               //false
+console.log(Object.is(obj1, obj2));       //false
 
 obj2.myName = "varsha";
 obj2.age = 40;
 obj2.gender = "female";
 
-console.log(obj2);         //{ myName: 'varsha', age: 40, gender: 'female' }
-console.log(obj1);         //{ myName: 'sahaj', age: 21, gender: 'male' }  
+console.log(obj2);                       //{ myName: 'varsha', age: 40, gender: 'female' }
+console.log(obj1);                       //{ myName: 'sahaj', age: 21, gender: 'male' }  
 ```
+
+### But, what if there are nested properties?
+```javascript
+let obj1 = {
+  myName: "sahaj",
+  age: 21,
+  location: {
+    city: "delhi",
+    country: "india",
+  },
+};
+
+let obj2 = Object.assign({}, obj1);
+
+console.log(obj1 === obj2);                     //false
+console.log(Object.is(obj1, obj2));             //false
+
+//updating top-level properties
+obj2.myName = "shivam";
+obj2.age = 20;
+
+console.log(obj1);
+console.log(obj2);
+```
+
+#### Output
+```javascript
+//obj1
+{
+  myName: 'sahaj',
+  age: 21,
+  location: { 
+    city: 'delhi', 
+    country: 'india' 
+  }
+}
+
+//obj2
+{
+  myName: 'shivam',
+  age: 20,
+  location: { 
+    city: 'delhi', 
+    country: 'india' 
+  }
+}
+```
+
+```javascript
+//updating nested properties
+obj2.location.city = "new york";
+obj2.location.country = "usa";
+
+console.log(obj1);
+console.log(obj2);
+```
+
+#### Output
+```javascript
+//obj1
+{
+  myName: 'sahaj',
+  age: 21,
+  location: { 
+    city: 'new york', 
+    country: 'usa' 
+  }
+}
+
+//obj2
+{
+  myName: 'shivam',
+  age: 20,
+  location: { 
+    city: 'new york', 
+    country: 'usa' 
+  }
+}
+```
+- This is a `drawback` of shallow copying.
+
 
 # Dynamic Property
 
