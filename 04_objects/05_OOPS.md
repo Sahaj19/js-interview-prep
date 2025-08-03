@@ -350,3 +350,189 @@ console.log(hero.power);                                         // undefined
 console.log(hero.#power);                                        // ❌ Private field '#power' must be declared in an enclosing class
 console.log(hero.#greeting());                                   // ❌ Private field '#greeting' must be declared in an enclosing class
 ```
+
+## Method Overriding (✅ Available in JavaScript)
+- **Method overriding** occurs when a child class provides its own version of a method that already exists in its parent class — using the `same method name` and compatible parameters.
+
+```javascript
+class Parent {
+    earnMoney() {
+        console.log("Work Hard");
+    }
+}
+
+class Child extends Parent {
+    earnMoney() {
+        console.log("Work Smart");
+    }
+}
+
+const p1 = new Parent();
+p1.earnMoney();                                                 // Work Hard
+
+const c1 = new Child();
+c1.earnMoney();                                                 // Work Smart
+
+
+/*
+Explanation:
+- Child class overrides the Parent's earnMoney() method.
+- Now, Parent and child have independent behavior.
+*/
+```
+
+```javascript
+class Parent {
+    earnMoney() {
+        console.log("Work Hard");
+    }
+}
+
+class Child extends Parent {
+    earnMoney() {
+        super.earnMoney();                                     
+        console.log("Work Smart");                            
+    } 
+}
+
+const p1 = new Parent();
+p1.earnMoney();                                                 // Work Hard
+
+const c1 = new Child();
+c1.earnMoney();                                                // Work Hard   Work Smart
+
+
+/*
+Explanation:
+- super.earnMoney() invokes the parent version.
+- Child extends behavior instead of replacing it completely.
+*/
+```
+
+## Method Overloading (❌ Not supported in JavaScript)
+- `Function overloading` means you can define multiple functions with the same name but with different numbers or types of parameters, **and the correct one will be called based on how you invoke it.**
+- ❌ **JavaScript** does NOT support `method/function overloading`
+- But in JavaScript, if you define multiple methods with the same name, **the last one simply overwrites the previous ones.**
+
+```javascript
+class Math {
+    add(a, b) {
+        return a + b;
+    }
+
+    add(a, b, c) {
+        return a + b + c;
+    }
+}
+
+const m1 = new Math();
+
+console.log(m1.add(2, 3));                                    // NaN → calls the second 'add', but c is undefined
+console.log(m1.add(2, 3, 5));                                 // 10 → works as expected
+
+/*
+Explanation:
+- The first add(a, b) gets overwritten by the second add(a, b, c)
+- So only the latest method (i.e second add()) exists
+- When you pass only 2 arguments, c is undefined → 2 + 3 + undefined = NaN
+*/
+
+/*
+❌ Why doesn’t JavaScript support this?
+- Because JavaScript is an interpreted language — it doesn't do any compile-time type or parameter checking.
+- Because Since JavaScript doesn’t check method signatures, any previously defined method with the same name is simply overwritten by the last one.
+- Because All function calls are resolved at runtime, not compile-time.
+*/
+```
+
+## static keyword
+- `static` means the **property or method belongs to the class, not the object.**
+- You don’t need to create an object (i.e class instance) to use it.
+- Just call it using the **class name.**
+
+```javascript
+class Config {
+    static API_KEY = "1234abcd";
+    static AWS_Key = "985858494";
+}
+
+console.log(Config.API_KEY);                                   // 1234abcd
+console.log(Config.AWS_Key);                                   // 985858494
+
+const c1 = new Config();
+console.log(c1.API_KEY);                                       // undefined
+console.log(c1.AWS_Key);                                       // undefined
+
+/*
+Explanation:
+- static properties are attached to the class itself (Config), not its instances.
+- c1 is an object of Config, so it doesn't have direct access to static members.
+*/
+```
+
+```javascript
+class Validator {
+    static isEmail(email) {
+        return email.includes("@");
+    }
+}
+
+Validator.isEmail("sahaj@yopmail.com");                        // ✅ true
+
+/*
+Explanation:
+- static keyword is Used to group helper methods that Don’t need an object instance and are directly accessible via class name
+- You don't need to create an object of Validator to use isEmail().
+*/
+```
+
+```javascript
+class User {
+    static userCount = 0;
+
+    constructor(name) {
+        this.userName = name;
+        User.userCount++;
+    }
+}
+
+const user1 = new User("Sahaj");
+const user2 = new User("Mitali");
+const user3 = new User("John");
+
+console.log(User.userCount);                                   // 3
+
+/*
+Why this is good:
+- userCount belongs to the class, not individual users
+- Useful in real-world cases like tracking how many objects were created
+*/
+```
+
+```javascript
+class Bank {
+    static bankName = "BOI";                                 
+    #balance = 100;                                           
+
+    checkbalance() {
+        return this.#balance;                                
+    }
+
+    static getBankName() {
+        return Bank.bankName;                                
+    }
+}
+
+const b1 = new Bank();
+
+console.log(b1.checkbalance());                              // ✅ 100 
+console.log(Bank.bankName);                                  // ✅ BOI 
+console.log(Bank.getBankName());                             // ✅ BOI 
+ 
+/*
+Explanation:
+- I hope now the dots are connecting :)
+*/
+```
+
+## Abstraction
