@@ -536,3 +536,184 @@ Explanation:
 ```
 
 ## Abstraction
+- **Abstraction** means `hiding the internal implementation details` and showing only the essential parts to the user.
+- It focuses on `what` an object does rather than `how` it does it.
+
+```javascript
+class Car {
+    checkEngine() {
+        return  "Checked & working Fine";
+    }
+
+    checkFuel() {
+        return "Checked & Tank is Full";
+    }
+
+    checkTyrePressure() {
+        return "Checked & Enough Pressure";
+    }
+
+    checkAirConditioning() {
+        return "Checked & working Fine";
+    }
+
+    checkMusicSystem() {
+        return 'Checked & working Fine';
+    }
+
+    StartTheCar() {
+        this.checkEngine();
+        this.checkFuel();
+        this.checkTyrePressure();
+        this.checkAirConditioning();
+        this.checkMusicSystem();
+        return "Starting the car..."
+    }
+}
+
+const myCar = new Car();
+console.log(myCar.StartTheCar());                            // Starting the car...
+
+/*
+Explanation:
+- StartTheCar() is an abstracted method that hides all the complex internal checks.
+- The user doesn't need to call each individual check — they just use one method.
+- This is abstraction: showing only the necessary detail (StartTheCar) and hiding how it's done internally.
+- In a way, we are encapsulating other functions inside the abstracted function.
+*/
+```
+
+```javascript
+class Smartphone {
+    #loadBIOS() {
+        console.log("BIOS loaded");
+    }
+
+    #loadKernel() {
+        console.log("Kernel booted");
+    }
+
+    #loadOS() {
+        console.log("Operating System started");
+    }
+
+    powerOn() {
+        this.#loadBIOS();
+        this.#loadKernel();
+        this.#loadOS();
+        return "Phone is now ON";
+    }
+}
+
+const phone = new Smartphone();
+console.log(phone.powerOn());     
+/*
+BIOS loaded
+Kernel booted
+Operating System started
+Phone is now ON
+*/
+
+phone.#loadOS();                                            // ❌ Error: Private field '#loadOS' must be declared in an enclosing class
+
+
+/*
+Why This Works:
+- As a user, you don't need (or want) to run BIOS or kernel yourself.
+- You just hit powerOn(), and the complex steps are abstracted inside.
+- This is true abstraction — hiding the parts you shouldn’t (or can’t) control.
+*/
+```
+
+## Polymorphism
+- **Polymorphism** means `many forms` — the same method name behaves differently based on the object that calls it.
+
+```javascript
+/*
+Ad-hoc Polymorphism (❌ Not True OOP Polymorphism)
+*/
+
+const Honda = {
+    start() {
+        console.log("Honda is Starting");
+    }
+}
+
+const Ford = {
+    start() {
+        console.log("Ford is Starting");
+    }
+}
+
+const Toyota = {
+    start() {
+        console.log("Toyota is Starting");
+    }
+}
+
+// Polymorphic Function
+function startTheCar(car) {
+    car.start();
+}
+
+startTheCar(Honda);                                          // Honda is Starting
+startTheCar(Ford);                                           // Ford is Starting
+startTheCar(Toyota);                                         // Toyota is Starting
+```
+
+```javascript
+/*
+❌ Neither Method Overriding nor Polymorphism
+*/
+
+class Dog {
+  makeSound() {
+    return "Woof!";
+  }
+}
+
+class Robot {
+  makeSound() {
+    return "Beep boop!";
+  }
+}
+
+
+const dog = new Dog();
+const robot = new Robot();
+
+console.log(dog.makeSound());                                // Woof!
+console.log(robot.makeSound());                              // Beep boop!
+```
+
+```javascript
+/*
+True OOP Polymorphism (✅Inheritance + ✅Overriding)
+*/
+
+class Animal {
+    makeSound() {
+        console.log("Animal Making Sound");
+    }
+}
+
+class Dog extends Animal {
+    makeSound() {
+        console.log("Woof");
+    }
+}
+
+class Cat extends Animal {
+    makeSound() {
+        console.log("Meow");
+    }
+}
+
+const myAnimal = new Animal();
+const myDog = new Dog();
+const myCat = new Cat();
+
+myAnimal.makeSound();                                     // Animal Making Sound
+myDog.makeSound();                                        // Woof
+myCat.makeSound();                                        // Meow
+```
